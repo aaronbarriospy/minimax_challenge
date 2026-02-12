@@ -1,0 +1,22 @@
+funcion minimax(tablero, profundidad, es_max):
+    # 1. Caso Base
+    si juego_terminado(tablero) o profundidad == 0:
+        retornar evaluar_tablero(tablero)
+
+    # 2. Maximizar (Turno Ratón)
+    si es_max:
+        max_eval = -infinito
+        para cada movimiento en movimientos_posibles(tablero):
+            nuevo_tablero = mover(tablero, movimiento)
+            eval = minimax(nuevo_tablero, profundidad - 1, FALSO)
+            max_eval = max(max_eval, eval)
+        retornar max_eval
+
+    # 3. Minimizar (Turno Gato)
+    sino:
+        min_eval = +infinito
+        para cada movimiento en movimientos_posibles(tablero):
+            nuevo_tablero = mover(tablero, movimiento)
+            eval = minimax(nuevo_tablero, profundidad - 1, VERDADERO)
+            min_eval = min(min_eval, eval)
+        retornar min_eval
