@@ -1,0 +1,34 @@
+2. Arsenal de Conceptos para tu Live Coding
+Cuando estés explicando el código este miércoles, utiliza estos términos. Harán que tu justificación técnica suene profesional y sólida.
+
+1. Algoritmo Minimax (Teoría de Juegos)
+Es un algoritmo de decisión utilizado en juegos de suma cero (lo que uno gana, el otro lo pierde).
+
+¿Cómo explicarlo? "Imaginen un árbol de decisiones. El algoritmo asume que ambos jugadores juegan de forma perfecta. Un jugador es el Maximizador (el ratón, que busca el número más alto para ganar) y el otro es el Minimizador (el gato, que busca el número más bajo). El algoritmo explora los posibles futuros alternando turnos y elige la ruta que le garantiza el menor daño asumiendo que el oponente también tomará sus mejores decisiones".
+
+2. Recursividad (Recursion)
+Es la técnica de programación donde una función se llama a sí misma dentro de su propio código para resolver problemas más pequeños del mismo tipo.
+
+¿Cómo explicarlo? "La función minimax() es recursiva. Para saber qué tan bueno es un movimiento hoy, necesita preguntarse a sí misma qué pasará mañana, y luego pasado mañana. Esto se detiene cuando choca con un Caso Base (alguien gana, o se llega al límite de profundidad permitido)."
+
+3. Distancia Manhattan
+Es una forma matemática de calcular la distancia entre dos puntos en un sistema de cuadrícula, moviéndose solo en líneas rectas horizontales y verticales (como si manejaras por las cuadras de una ciudad), a diferencia de la línea recta diagonal (Distancia Euclidiana).
+
+¿Cómo explicarlo? "Uso la Distancia Manhattan abs(x1 - x2) + abs(y1 - y2) porque en este tablero no nos movemos en diagonal. Es la forma más precisa y rápida de calcular cuántos turnos reales le tomaría a un personaje alcanzar al otro en un mundo cuadriculado".
+
+4. Heurística (Heuristics)
+Es una "estimación educada" o regla general que se usa cuando no podemos calcular el resultado exacto.
+
+¿Cómo explicarlo? "El árbol de decisiones de Minimax puede volverse inmenso. Como no podemos calcular hasta el final de la partida en cada turno (tardaría horas), le pongo un límite de profundidad=5. Cuando llega a ese límite y no sabe quién ganó, usa una Heurística: devuelve la Distancia Manhattan actual. Le dice al gato: 'No sé si lo atraparás al final, pero este movimiento te deja 1 bloque más cerca, así que es bueno'."
+
+5. Poda Alfa-Beta (Alpha-Beta Pruning)
+Es una optimización matemática para el algoritmo Minimax que evita evaluar ramas del árbol de decisiones que sabemos que no van a cambiar el resultado final.
+
+¿Cómo explicarlo? "Hace que el código sea exponencialmente más rápido. Si el gato está simulando caminos y encuentra una jugada que le asegura atrapar al ratón en 2 turnos, y luego empieza a explorar otra rama y ve que ahí el ratón se escapa en el primer paso... el algoritmo corta (poda) esa segunda rama inmediatamente con break. No pierde tiempo calculándola entera porque sabe que jamás la elegiría".
+
+6. Conjuntos (Sets) vs Listas (Lists)
+En el código, los obstáculos se guardan en un set() en lugar de una lista estándar [].
+
+¿Cómo explicarlo? "Decidí usar un set de Python para los obstáculos en lugar de una lista por eficiencia computacional. Al validar cada movimiento, el programa pregunta reiteradamente (nf, nc) not in obs. Buscar en una lista tiene una complejidad de O(n), mientras que buscar en un set, al usar tablas hash por debajo, tiene una complejidad de O(1). Es instantáneo sin importar cuántas paredes haya en el tablero".
+
+¿Hay algún concepto en particular que sientas que te cuesta explicar con tus propias palabras o quieres que hagamos un ensayo de cómo defenderías la elección de no usar Clases (POO) si te lo preguntan en la entrevista?
