@@ -1,10 +1,3 @@
-# ==============================
-# LABERINTO DEL GATO Y EL RATÓN
-# Minimax (sin clases, solo funciones)
-# Todo explicado línea por línea en ESPAÑOL.
-# ==============================
-
-
 import random  # [001] Importa el módulo "random": viene de la librería estándar de Python y sirve para generar azar (ej: elegir movimientos aleatorios).
 import math  # [002] Importa el módulo "math": trae funciones matemáticas (por ejemplo infinito con math.inf).
 import time  # [003] Importa el módulo "time": sirve para pausar el programa (por ejemplo para ver el tablero más lento).
@@ -31,7 +24,7 @@ DIRECCIONES_8 = DIRECCIONES_4 + [  # [011] Crea una lista nueva: toma DIRECCIONE
 
 
 # ------------------------------
-# TABLERO (representación sin clases)
+# TABLERO 
 # ------------------------------
 
 def crear_tablero(filas, columnas, obstaculos, diagonales, queso):  # [017] Definimos una FUNCIÓN. Las funciones agrupan lógica reutilizable.
