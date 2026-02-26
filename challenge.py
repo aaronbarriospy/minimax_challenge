@@ -508,3 +508,211 @@ def elegir_movimiento_seguro():
             movimientos_filtrados.append(valor)
     mejor_opcion = max(movimientos_filtrados)
     return mejor_opcion
+
+
+### FUNCION crear_tablero_ajedrez(n):
+    tablero = lista vacía
+    
+    PARA f DESDE 0 HASTA n - 1:
+        fila_actual = lista vacía
+        PARA c DESDE 0 HASTA n - 1:
+            SI (f + c) es par:
+                AGREGAR 0 A fila_actual
+            SINO:
+                AGREGAR 1 A fila_actual
+        AGREGAR fila_actual A tablero
+        
+    RETORNAR tablero
+
+def crear_tablero_ajedrez(n):
+    tablero = []
+    for f in range(n):
+        fila_actual = []
+        for c in range(n):
+            if (f + c) % 2 == 0:
+                fila_actual.append(0)
+            else:
+                fila_actual.append(1)
+        tablero.append(fila_actual)
+    return tablero
+
+
+### FUNCION evaluar_estado(estado):
+    SI estado ES "victoria_ia":
+        RETORNAR 100
+    SI estado ES "victoria_rival":
+        RETORNAR -100
+    SINO:
+        RETORNAR 0
+
+FUNCION minimax_simple(es_turno_ia):
+    SI juego_termino():
+        resultado = obtener_resultado()
+        RETORNAR evaluar_estado(resultado)
+        
+    SI es_turno_ia:
+        mejor_valor = -1000
+        PARA CADA jugada EN obtener_jugadas():
+            valor = minimax_simple(False)
+            mejor_valor = max(mejor_valor, valor)
+        RETORNAR mejor_valor
+    SINO:
+        mejor_valor = 1000
+        PARA CADA jugada EN obtener_jugadas():
+            valor = minimax_simple(True)
+            mejor_valor = min(mejor_valor, valor)
+        RETORNAR mejor_valor
+
+def evaluar_estado(estado):
+    if estado == "victoria_ia":
+        return 100
+    elif estado == "victoria_rival":
+        return -100
+    else:
+        return 0
+
+def minimax_simple(es_turno_ia):
+    if juego_termino():
+        resultado = obtener_resultado()
+        return evaluar_estado(resultado)
+    elif es_turno_ia:
+        mejor_valor = -1000
+        for jugada in obtener_jugadas():
+            valor = minimax_simple(False)
+            mejor_valor = max(mejor_valor, valor)
+        return mejor_valor
+    else:
+        mejor_valor = 1000
+        for jugada in obtener_jugadas():
+            valor = minimax_simple(True)
+            mejor_valor = min(mejor_valor, valor)
+        return mejor_valor
+
+### FUNCION elegir_mejor_coordenada():
+    # Estructura: [fila, columna, puntaje]
+    posibilidades = [[0, 1, 10], [1, 2, 50], [2, 2, -20]]
+    
+    mejor_puntaje = -1000
+    mejor_coord = (0, 0)
+    
+    PARA CADA opcion EN posibilidades:
+        puntaje_actual = opcion[2]
+        SI puntaje_actual ES MAYOR QUE mejor_puntaje:
+            mejor_puntaje = puntaje_actual
+            # Guardamos la fila (índice 0) y la columna (índice 1)
+            mejor_coord = (opcion[0], opcion[1])
+            
+    RETORNAR mejor_coord
+
+def elegir_mejor_coordenada():
+    posibilidades = [[0, 1, 10], [1, 2, 50], [2, 2, -20]]
+
+    mejor_puntaje = -1000
+    mejor_coord = (0, 0)
+
+    for opcion in posibilidades:
+        puntaje_actual = opcion[2]
+        if puntaje_actual > mejor_puntaje:
+            mejor_puntaje = puntaje_actual
+            mejor_coord = (opcion[0], opcion[1])
+    return mejor_coord
+
+### FUNCION crear_tablero_personalizado(filas, columnas, simbolo):
+    tablero = []
+    
+    PARA f DESDE 0 HASTA filas - 1:
+        nueva_fila = []
+        PARA c DESDE 0 HASTA columnas - 1:
+            AGREGAR simbolo A nueva_fila
+            
+        AGREGAR nueva_fila A tablero
+        
+    RETORNAR tablero
+
+def crear_tablero_personalizado(filas, columnas, simbolo):
+    tablero = []
+
+    for f in range(filas):
+        nueva_fila = []
+        for c in range(columnas):
+            nueva_fila.append(simbolo)
+
+        tablero.append(nueva_fila)
+
+    return tablero
+
+
+### FUNCION evaluar_defensa(lista_movimientos):
+    # Cada movimiento es [fila, columna, peligro_derrota]
+    # peligro_derrota es Verdadero o Falso
+    
+    PARA CADA mov EN lista_movimientos:
+        SI mov[2] ES IGUAL A Verdadero:
+            # Si este movimiento nos hace perder, devolvemos un mensaje de alerta
+            IMPRIMIR "¡Peligro en la posicion!" + mov[0] + mov[1]
+            RETORNAR "bloquear"
+            
+    RETORNAR "atacar"
+
+def evaluar_defensa(lista_movimientos):
+    for movimiento in lista_movimientos:
+        if movimiento[2] == True:
+            print("Peligro en la posicion!" + str(movimiento[0]) + "," + str(movimiento[1]))
+            return "bloquear"
+    return "atacar"
+
+
+### FUNCION generar_matriz_visual(filas, col, set_paredes):
+    matriz = []  # Lista vacía para el tablero
+    
+    PARA f DESDE 0 HASTA filas - 1:
+        fila_actual = []  # Lista vacía para la fila de este piso
+        PARA c DESDE 0 HASTA col - 1:
+            SI la coordenada (f, c) ESTÁ en set_paredes:
+                AGREGAR "#" a fila_actual
+            SINO:
+                AGREGAR "." a fila_actual
+                
+        AGREGAR fila_actual A matriz
+        
+    RETORNAR matriz
+
+def generar_matriz_visual(filas, col, set_paredes):
+    matriz = []
+
+    for f in range(filas):
+        fila_actual = []
+        for c in range(col):
+            if (f, c) in set_paredes:
+                fila_actual.append('#')
+            else:
+                fila_actual.append('.')
+
+        matriz.append(fila_actual)
+    return matriz
+
+### matriz = [[ (1 SI f == c SINO 0) PARA c EN RANGO col ] PARA f EN RANGO filas]
+
+matriz = [[ (1 if f == c else 0) for c in range(col)] for f in range(filas)]
+
+### tablero = [[ ("#" SI (f, c) ESTÁ EN paredes SINO ".") PARA c EN RANGO col ] PARA f EN RANGO filas]
+
+tablero = [[('#' if(f, c) in paredes else ".") for c in range(col)] for f in range(filas)]
+
+### coordenadas = [[ (f, c) PARA c EN RANGO col ] PARA f EN RANGO filas]
+
+coordenadas = [[ (f, c) for c in range(col)] for f in range(filas)]
+
+### tablero = [[('#' if(f, c) in paredes else ".") for c in range(col)] for f in range(filas)]
+
+f_gato, c_gato = gato
+tablero[f_gato][c_gato] = "G"
+
+f_raton, c_raton = raton
+tablero[f_raton][c_raton] = "R"
+
+### SI contar_pasos(gato, raton) == 1:
+    RETORNAR -50
+
+if contar_pasos(gato, raton) == 1:
+    return -50
